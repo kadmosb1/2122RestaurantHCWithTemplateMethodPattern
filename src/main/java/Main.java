@@ -6,10 +6,10 @@ public class Main {
     public static ArrayList<Meal> meals = new ArrayList<> ();
 
     public static void seed () {
-        meals.add (new Meal (Meal.HAMBURGER, false));
-        meals.add (new Meal (Meal.HAMBURGER, true));
-        meals.add (new Meal (Meal.SPECIAL, false));
-        meals.add (new Meal (Meal.SPECIAL, true));
+        meals.add (new Hamburger (false));
+        meals.add (new Hamburger (true));
+        meals.add (new Special (false));
+        meals.add (new Special (true));
     }
 
     public static void main(String[] args) {

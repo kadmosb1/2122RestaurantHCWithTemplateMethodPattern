@@ -1,24 +1,19 @@
 import java.util.Scanner;
 
-public class Meal {
+public abstract class Meal {
 
-    public static final int SPECIAL = 1;
-    public static final int HAMBURGER = 2;
-    private int type = HAMBURGER;
-    private String name = "Broodje hamburger";
+    private String name;
     private boolean withSoda = false;
     private boolean withFries = false;
 
-    public Meal (int type, boolean withSodaAndFries) {
+    public Meal (String name, boolean withSodaAndFries) {
 
-        if (type == SPECIAL) {
-            this.type = type;
-            name += " speciaal";
-        }
+        this.name = name;
 
         if (withSodaAndFries) {
-            name += " met fris en frites";
-            withSoda = true; withFries = true;
+            this.name += " met fris en frites";
+            withSoda = true;
+            withFries = true;
         }
     }
 
@@ -26,17 +21,15 @@ public class Meal {
         return name;
     }
 
+    public abstract String getOrderLine ();
+
     public String getOrder () {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner (System.in);
 
         String order = "\r\n===============================================\r\n";
-        order += "= Bestelling: " + getName () + "\r\n";
-
-        if (type == SPECIAL) {
-            System.out.print ("Wil de klant curry of ketchup bij het broodje hamburger speciaal? ");
-            order += "= Saus: " + scanner.nextLine () + "\r\n";
-        }
+        order += "= Bestelling: " + name + "\r\n";
+        order += getOrderLine ();
 
         if (withSoda) {
             System.out.print ("Welk drinken wil de klant bij zijn maaltijd? ");
