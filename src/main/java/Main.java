@@ -1,30 +1,38 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
+    public static ArrayList<Meal> meals = new ArrayList<> ();
+
+    public static void seed () {
+        meals.add (new Meal (Meal.HAMBURGER, false));
+        meals.add (new Meal (Meal.HAMBURGER, true));
+        meals.add (new Meal (Meal.SPECIAL, false));
+        meals.add (new Meal (Meal.SPECIAL, true));
+    }
+
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner (System.in);
+        int menukeuze = 1;
+        seed ();
 
         System.out.println("Welke maaltijd wil de klant bestellen?");
         System.out.println ();
-        System.out.println("1. Broodje hamburger");
-        System.out.println("2. Broodje hamburger met fris en frites");
-        System.out.println("3. Broodje hamburger speciaal");
-        System.out.println("4. Broodje hamburger speciaal met fris en frites");
+
+        for (Meal meal : meals) {
+            System.out.println (menukeuze + ". " + meal.getName());
+            menukeuze++;
+        }
+
         System.out.println ();
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Welke maaltijd? ");
-        int keuze = scanner.nextInt();
+        menukeuze = scanner.nextInt();
         scanner.nextLine ();
 
-        Meal meal;
-
-        if ((keuze == 1) || (keuze == 2)) {
-            meal = new Hamburger (keuze);
-        }
-        else {
-            meal = new Special (keuze);
-        }
-
-        System.out.println (meal.getOrder ());
+        Meal meal = meals.get (menukeuze - 1);
+        String order = meal.getOrder ();
+        System.out.println (order);
     }
 }

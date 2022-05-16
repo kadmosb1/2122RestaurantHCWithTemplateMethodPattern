@@ -1,17 +1,24 @@
-public abstract class Meal {
+import java.util.Scanner;
 
-    private String name;
-    private Soda soda;
-    private Fries fries;
+public class Meal {
 
-    public Meal (int keuze, String name) {
+    public static final int SPECIAL = 1;
+    public static final int HAMBURGER = 2;
+    private int type = HAMBURGER;
+    private String name = "Broodje hamburger";
+    private boolean withSoda = false;
+    private boolean withFries = false;
 
-        this.name = name;
+    public Meal (int type, boolean withSodaAndFries) {
 
-        if ((keuze == 2) || (keuze == 4)) {
-            this.name += " met fris en frites";
-            soda = new Soda ();
-            fries = new Fries ();
+        if (type == SPECIAL) {
+            this.type = type;
+            name += " speciaal";
+        }
+
+        if (withSodaAndFries) {
+            name += " met fris en frites";
+            withSoda = true; withFries = true;
         }
     }
 
@@ -19,22 +26,28 @@ public abstract class Meal {
         return name;
     }
 
-    public abstract String getOrderLine ();
-
     public String getOrder () {
 
-        String bestelling = "\r\n===============================================\r\n";
-        bestelling += "= Bestelling: " + getName () + "\r\n";
-        bestelling += getOrderLine ();
+        Scanner scanner = new Scanner(System.in);
 
-        if (soda != null) {
-            bestelling += soda.getOrderLine ();
+        String order = "\r\n===============================================\r\n";
+        order += "= Bestelling: " + getName () + "\r\n";
+
+        if (type == SPECIAL) {
+            System.out.print ("Wil de klant curry of ketchup bij het broodje hamburger speciaal? ");
+            order += "= Saus: " + scanner.nextLine () + "\r\n";
         }
 
-        if (fries != null) {
-            bestelling += fries.getOrderLine ();
+        if (withSoda) {
+            System.out.print ("Welk drinken wil de klant bij zijn maaltijd? ");
+            order += "= Drank: " + scanner.nextLine () + "\r\n";
         }
 
-        return bestelling + "===============================================";
+        if (withFries) {
+            System.out.print ("Wil de klant fritessaus bij de frites (j/n) ");
+            order += "= Extra fritessaus: " + (scanner.nextLine ().equals ("j") ? "ja" : "nee") + "\r\n";
+        }
+
+        return order + "===============================================";
     }
 }
