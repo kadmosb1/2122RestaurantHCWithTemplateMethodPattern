@@ -10,6 +10,8 @@ public class Main {
         meals.add (new Hamburger (true));
         meals.add (new Special (false));
         meals.add (new Special (true));
+        meals.add (new VegatarianBurger (false));
+        meals.add (new VegatarianBurger (true));
     }
 
     public static void main(String[] args) {
