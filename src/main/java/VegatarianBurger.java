@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class VegatarianBurger extends Meal {
 
-    public VegatarianBurger(boolean withSodaAndFries) {
-        super("Broodje vegetarische burger", withSodaAndFries);
+    public VegatarianBurger(ArrayList<Extra> extras) {
+        super("Broodje vegetarische burger", extras);
     }
 
     @Override

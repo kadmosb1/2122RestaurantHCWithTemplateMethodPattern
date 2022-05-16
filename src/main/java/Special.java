@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Special extends Meal {
 
-    public Special(boolean withSodaAndFries) {
-        super("Broodje hamburger speciaal", withSodaAndFries);
+    public Special(ArrayList<Extra> extras) {
+        super("Broodje hamburger speciaal", extras);
     }
 
     @Override

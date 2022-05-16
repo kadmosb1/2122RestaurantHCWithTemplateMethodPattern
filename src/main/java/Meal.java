@@ -1,19 +1,40 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Meal {
 
     private String name;
-    private boolean withSoda = false;
-    private boolean withFries = false;
+    private ArrayList<Extra> extras = new ArrayList<> ();
 
-    public Meal (String name, boolean withSodaAndFries) {
+    public Meal (String name, ArrayList<Extra> extras) {
 
         this.name = name;
 
-        if (withSodaAndFries) {
-            this.name += " met fris en frites";
-            withSoda = true;
-            withFries = true;
+        StringBuilder string = new StringBuilder ();
+
+        if (extras != null) {
+            this.extras = extras;
+        }
+
+        if ((extras != null) && (extras.size () > 0)) {
+
+            for (int teller = 0; teller < extras.size (); teller++) {
+
+                if (teller == 0) {
+                    string.append (" (met ");
+                }
+                else if (teller == (extras.size () - 1)) {
+                    string.append (" en ");
+                }
+                else {
+                    string.append (", ");
+                }
+
+                string.append (extras.get (teller).getName ());
+            }
+
+            string.append (")");
+            this.name += string;
         }
     }
 
@@ -26,21 +47,16 @@ public abstract class Meal {
     public String getOrder () {
 
         Scanner scanner = new Scanner (System.in);
+        StringBuilder order = new StringBuilder ();
+        order.append ("\r\n===============================================\r\n");
+        order.append ("= Bestelling: ").append (name).append ("\r\n");
+        order.append (getOrderLine ());
 
-        String order = "\r\n===============================================\r\n";
-        order += "= Bestelling: " + name + "\r\n";
-        order += getOrderLine ();
-
-        if (withSoda) {
-            System.out.print ("Welk drinken wil de klant bij zijn maaltijd? ");
-            order += "= Drank: " + scanner.nextLine () + "\r\n";
+        for (Extra extra : extras) {
+            order.append (extra.getOrderLine ());
         }
 
-        if (withFries) {
-            System.out.print ("Wil de klant fritessaus bij de frites (j/n) ");
-            order += "= Extra fritessaus: " + (scanner.nextLine ().equals ("j") ? "ja" : "nee") + "\r\n";
-        }
-
-        return order + "===============================================";
+        order.append ("===============================================");
+        return order.toString ();
     }
 }

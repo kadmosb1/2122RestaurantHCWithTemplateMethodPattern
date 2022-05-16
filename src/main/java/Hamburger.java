@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 public class Hamburger extends Meal {
 
-    public Hamburger (boolean withSodaAndFries) {
-        super ("Broodje hamburger", withSodaAndFries);
+    public Hamburger (ArrayList<Extra> extras) {
+        super ("Broodje hamburger", extras);
     }
 
     @Override

@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,12 +7,20 @@ public class Main {
     public static ArrayList<Meal> meals = new ArrayList<> ();
 
     public static void seed () {
-        meals.add (new Hamburger (false));
-        meals.add (new Hamburger (true));
-        meals.add (new Special (false));
-        meals.add (new Special (true));
-        meals.add (new VegatarianBurger (false));
-        meals.add (new VegatarianBurger (true));
+        ArrayList<Extra> dessert = new ArrayList<> ();
+        dessert.add (new Dessert ());
+        ArrayList<Extra> sodaAndFries = new ArrayList<> ();
+        sodaAndFries.add (new Soda ());
+        sodaAndFries.add (new Fries ());
+        ArrayList<Extra> all = new ArrayList<> (sodaAndFries);
+        all.addAll (dessert);
+
+        meals.add (new Hamburger (dessert));
+        meals.add (new Hamburger (null));
+        meals.add (new Special (all));
+        meals.add (new Special (sodaAndFries));
+        meals.add (new VegatarianBurger (null));
+        meals.add (new VegatarianBurger (dessert));
     }
 
     public static void main(String[] args) {
